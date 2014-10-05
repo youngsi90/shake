@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<title>Magic 8 Ball</title>
+	<script type="text/javascript" src="js/shake.js"></script>
+	<style>
+		body{
+			background:black;
+			color:white;
+			
+		}
+		#eight-ball {
+			margin: 0 auto;
+			text-align: center;
+			font-family: Helvetica;
+			font-size:30px;
+			font-weight: bold;
+		}
+		
+		img{
+			border: 3px solid #9F8F53;
+			width:500px;
+			height:500px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="eight-ball">
+		<button onclick="shake()">Shake!</button>
+		<p id="question"></p>
+		<p id="answer"></p>
+	</div>
+</body>
+
+<script>
+	window.onload = function() {
+		window.addEventListener('shake', shakeEventDidOccur, false);
+		
+		function shakeEventDidOccur(){
+			shake();
+		}
+
+    var fortuneTeller = {
+        promptText: "Ask me a question.",
+		answerType: "image",
+		answers: [
+			"images/yes.png",
+			"images/no.png",
+			"images/yourwrong.png",
+			"images/yourbeautiful.png",
+			"images/maybe.png",
+			"images/yousuck.png",
+			"images/youramazing.png"
+			
+		],
+		getAnswer: function(){
+			var min = 1;
+			var max = this.answers.length;
+			var index = Math.floor(Math.random() * (max - min + 1)) + min;
+			return this.answers[index-1];
+		}
+	};
+	console.log(fortuneTeller.answers);
+	
+	function shake(){
+	
+		var question = prompt(fortuneTeller.promptText);
+		
+		var questionText = document.getElementById('question');
+		questionText.innerHTML = question;
+	
+		var randomAnswer = fortuneTeller.getAnswer();
+
+		var fortuneText = document.getElementById('answer');
+		
+		fortuneText.innerHTML = '<img src="' + randomAnswer +'"/>';
+	}
+};
+	
+</script>
+
+</html>
